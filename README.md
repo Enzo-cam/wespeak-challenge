@@ -1,36 +1,88 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Proyecto Contador con Next.js, Prisma y SQLite
 
-## Getting Started
+Este proyecto es una aplicación simple de contador construida con Next.js, utilizando Prisma ORM con una base de datos SQLite.
 
-First, run the development server:
+## Prerrequisitos
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- Node.js (v14 o superior)
+- npm o yarn
+
+## Configuración
+
+1. Clona el repositorio:
+   ```
+   git clone https://github.com/tu-usuario/nombre-de-tu-repo.git
+   cd nombre-de-tu-repo
+   ```
+
+2. Instala las dependencias:
+   ```
+   npm install
+   ```
+   o
+   ```
+   yarn install
+   ```
+
+3. Configura la base de datos:
+   ```
+   npx prisma migrate dev --name init
+   ```
+   Este comando hará lo siguiente:
+   - Crear un nuevo archivo de base de datos SQLite (si no existe)
+   - Aplicar todas las migraciones, creando las tablas necesarias
+   - Generar el Prisma Client
+
+   Nota: Esto crea una nueva base de datos vacía. No contendrá ningún dato del entorno de desarrollo original.
+
+4. (Opcional) Poblar la base de datos:
+   Si tienes un script de semilla (seed), ejecútalo para poblar la base de datos con datos iniciales:
+   ```
+   npx prisma db seed
+   ```
+
+5. Inicia el servidor de desarrollo:
+   ```
+   npm run dev
+   ```
+   o
+   ```
+   yarn dev
+   ```
+
+6. Abre [http://localhost:3000](http://localhost:3000) en tu navegador para ver el resultado.
+
+## Base de Datos
+
+Este proyecto utiliza SQLite como base de datos. El archivo de la base de datos (`prisma/dev.db`) se crea localmente cuando ejecutas las migraciones y no se incluye en el repositorio.
+
+Si necesitas reiniciar la base de datos:
+1. Elimina el archivo `prisma/dev.db`
+2. Ejecuta `npx prisma migrate reset` para aplicar todas las migraciones y opcionalmente ejecutar scripts de semilla
+
+## Prisma Studio
+
+Puedes usar Prisma Studio para ver y editar tu base de datos:
+
+```
+npx prisma studio
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Esto abrirá una ventana del navegador donde podrás interactuar con tus datos.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Despliegue
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Al desplegar este proyecto, asegúrate de que tu entorno de alojamiento soporte SQLite o considera migrar a una solución de base de datos más robusta para uso en producción.
 
-## Learn More
+## Solución de Problemas Comunes
 
-To learn more about Next.js, take a look at the following resources:
+- Si encuentras errores relacionados con Prisma, intenta ejecutar `npx prisma generate` para asegurarte de que el cliente de Prisma esté actualizado.
+- Si los cambios en la base de datos no se reflejan, prueba ejecutar `npx prisma migrate dev` para aplicar cualquier migración pendiente.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Contribuciones
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Las contribuciones son bienvenidas. Por favor, abre un issue o un pull request para sugerir cambios o mejoras.
 
-## Deploy on Vercel
+## Soporte
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Si tienes alguna pregunta o problema, por favor abre un issue en el repositorio de GitHub.
