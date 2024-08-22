@@ -70,19 +70,3 @@ npx prisma studio
 
 Esto abrirá una ventana del navegador donde podrás interactuar con tus datos.
 
-## Despliegue
-
-Al desplegar este proyecto, asegúrate de que tu entorno de alojamiento soporte SQLite o considera migrar a una solución de base de datos más robusta para uso en producción.
-
-## Solución de Problemas Comunes
-
-- Si encuentras errores relacionados con Prisma, intenta ejecutar `npx prisma generate` para asegurarte de que el cliente de Prisma esté actualizado.
-- Si los cambios en la base de datos no se reflejan, prueba ejecutar `npx prisma migrate dev` para aplicar cualquier migración pendiente.
-
-## Contribuciones
-
-Las contribuciones son bienvenidas. Por favor, abre un issue o un pull request para sugerir cambios o mejoras.
-
-## Soporte
-
-Si tienes alguna pregunta o problema, por favor abre un issue en el repositorio de GitHub.
