@@ -1,7 +1,12 @@
-import Image from "next/image";
+import Counter from "./Components/Counter";
+import { getCounter } from "./actions/counter-action";
 
-export default function Home() {
+export default async function Home() {
+  const initialCount = await getCounter();
+
   return (
-    <h1>Setup</h1>
+    <main>
+      <Counter initialCount={initialCount} />
+    </main>
   );
 }

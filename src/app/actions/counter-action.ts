@@ -3,16 +3,7 @@
 import {prisma} from '../../../lib/prisma'
 
 
-export async function getCounter() {
-  const counter = await prisma.counter.findFirst()
-  if (!counter) {
-    const newCounter = await prisma.counter.create({ data: { value: 0 } })
-    return newCounter.value
-  }
-  return counter.value
-}
-
-export async function updateCounter(increment: number) {
+export async function updateCounter(increment: number): Promise<number> {
   let counter = await prisma.counter.findFirst()
   
   if (!counter) {
@@ -24,5 +15,15 @@ export async function updateCounter(increment: number) {
     data: { value: counter.value + increment },
   })
 
+  console.log('Updated counter value:', updatedCounter.value)
   return updatedCounter.value
+}
+
+export async function getCounter(): Promise<number> {
+  const counter = await prisma.counter.findFirst()
+  if (!counter) {
+    const newCounter = await prisma.counter.create({ data: { value: 0 } })
+    return newCounter.value
+  }
+  return counter.value
 }
