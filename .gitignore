@@ -43,3 +43,17 @@ next-env.d.ts
 # IDE
 .vscode/
 .idea/
+
+# Prisma
+*.db
+*.db-journal
+
+# Mantén los archivos de migración
+prisma/migrations
+
+# Ignora el archivo de entorno, pero mantén un ejemplo
+.env
+!.env.example
+
+# Dependencias generadas por Prisma
+node_modules/@prisma/client
