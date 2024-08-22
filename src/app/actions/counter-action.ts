@@ -1,28 +1,26 @@
-//SV-Action for the counter
 'use server'
-import {prisma} from '../../../lib/prisma'
+import { updateCounter as updateCounterLogic, getCounter as getCounterLogic } from '../../../lib/counter-logic';
 
-
-// Actualizamos el contador en la base de datos y devolvemos el nuevo valor hacia el counter component
+// Updatiamos el contador en la base de datos
 export async function updateCounter(increment: number): Promise<number> {
-  let counter = await prisma.counter.findFirst();
-  
-  // En el caso de que no exista un contador, lo creamos con el valor de increment
-  if (!counter) {
-    counter = await prisma.counter.create({ data: { value: increment } });
-  } else {
-    // En el caso de que exista, vamos a ir actualizando el contador
-    counter = await prisma.counter.update({
-      where: { id: counter.id },
-      data: { value: { increment: increment } },
-    });
+  try {
+    const newValue = await updateCounterLogic(increment);
+    return newValue;
+  } catch (error) {
+    console.error('Error updateando el counter:', error);
+    // En caso de que haya error, podríamos retornar un valor por defecto o lanzar un error
+    return 0;
   }
-  return counter.value;
 }
 
-// Obtenemos el valor del contador desde la base de datos
+// Obtenemos el valor del contador de la base de datos
 export async function getCounter(): Promise<number> {
-  const counter = await prisma.counter.findFirst();
-  const value = counter?.value ?? 0;
-  return value;
+  try {
+    const value = await getCounterLogic();
+    return value;
+  } catch (error) {
+    console.error('Error getting counter:', error);
+    // En caso de que haya error, podríamos retornar un valor por defecto o lanzar un error
+    return 0;
+  }
 }
