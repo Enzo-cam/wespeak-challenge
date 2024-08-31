@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { prisma } from '../../../../lib/prisma';
 import { revalidatePath } from 'next/cache';
 
-export async function POST(request: Request) {
+export async function GET(request: Request) {
   
    // Verificar la autenticación del CronSecret(es lo que recomienda vercel)
    const authHeader = request.headers.get('authorization');
