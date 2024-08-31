@@ -1,34 +1,36 @@
-# Dependencies
+# dependencies
 /node_modules
 /.pnp
 .pnp.js
+.yarn/install-state.gz
 
-# Testing
+# testing
 /coverage
 
-# Next.js
+# next.js
 /.next/
 /out/
 
-# Production
+# production
 /build
 
-# Misc
+# misc
 .DS_Store
 *.pem
 
-# Debug
+# debug
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Local env files
+# local env files
+.env
 .env*.local
 
-# Vercel
+# vercel
 .vercel
 
-# TypeScript
+# typescript
 *.tsbuildinfo
 next-env.d.ts
 
@@ -36,24 +38,26 @@ next-env.d.ts
 /prisma/*.db
 /prisma/*.db-journal
 
-# SQLite database
-*.sqlite
-*.sqlite-journal
-
 # IDE
 .vscode/
 .idea/
 
-# Prisma
-*.db
-*.db-journal
+# Logs
+logs
+*.log
 
-# Mantén los archivos de migración
-prisma/migrations
+# Optional npm cache directory
+.npm
 
-# Ignora el archivo de entorno, pero mantén un ejemplo
+# Optional eslint cache
+.eslintcache
+
+# Optional stylelint cache
+.stylelintcache
+
+# dotenv environment variable files
 .env
-!.env.example
-
-# Dependencias generadas por Prisma
-node_modules/@prisma/client
+.env.development.local
+.env.test.local
+.env.production.local
+.env.local

@@ -1,47 +1,35 @@
-# Proyecto Contador con Next.js, Prisma y SQLite
+# Proyecto Contador con Next.js, Prisma y PostgreSQL
 
-Este proyecto es una aplicación simple de contador construida con Next.js, utilizando Prisma ORM con una base de datos SQLite.
+App simple de contador construida con Next.js, utilizando Prisma ORM con una base de datos PostgreSQL. 
+
+## Cambios Recientes
+- Cambie la BDD  de SQLite a PostgreSQL para mejorar la escalabilidad y el rendimiento y a su vez usar el deploy que brinda Railway.
+- Agregue una nueva ruta API para resetear el contador, pensada para ser utilizada con un cron job.
 
 ## Prerrequisitos
-
 - Node.js (v14 o superior)
 - npm o yarn
+- PostgreSQL (instalado localmente o acceso a una instancia remota)
 
 ## Configuración
-
-1. Clona el repositorio:
+1. Clonar el repo:
    ```
    git clone https://github.com/tu-usuario/nombre-de-tu-repo.git
    cd nombre-de-tu-repo
    ```
-
 2. Instala las dependencias:
    ```
    npm install
    ```
-   o
-   ```
-   yarn install
-   ```
+3. Configurar la base de datos:
+   - Crea una nueva base de datos en PostgreSQL.
+   - Copia el archivo `.env.example` a `.env` y actualiza la `DATABASE_URL` con tus credenciales de PostgreSQL.
 
-3. Configura la base de datos:
+4. Aplicar las migraciones:
    ```
    npx prisma migrate dev --name init
    ```
-   Este comando hará lo siguiente:
-   - Crear un nuevo archivo de base de datos SQLite (si no existe)
-   - Aplicar todas las migraciones, creando las tablas necesarias
-   - Generar el Prisma Client
-
-   Nota: Esto crea una nueva base de datos vacía. No contendrá ningún dato del entorno de desarrollo original.
-
-4. (Opcional) Poblar la base de datos:
-   Si tienes un script de semilla (seed), ejecútalo para poblar la base de datos con datos iniciales:
-   ```
-   npx prisma db seed
-   ```
-
-5. Inicia el servidor de desarrollo:
+5. Iniciar el servidor de desarrollo:
    ```
    npm run dev
    ```
@@ -50,23 +38,26 @@ Este proyecto es una aplicación simple de contador construida con Next.js, util
    yarn dev
    ```
 
-6. Abre [http://localhost:3000](http://localhost:3000) en tu navegador para ver el resultado.
+## API para Resetear el Contador
+Implemente una nueva ruta API para resetear el contador, ruta a la cual le pegaré desde un cron job:
+
+```
+app/api/reset-counter/route.ts
+```
+
+La idea de esta ruta es resetear automáticamente el contador a intervalos regulares. El servicio que utilizo es cron-job.org
 
 ## Base de Datos
-
-Este proyecto utiliza SQLite como base de datos. El archivo de la base de datos (`prisma/dev.db`) se crea localmente cuando ejecutas las migraciones y no se incluye en el repositorio.
-
+Este proyecto usa PostgreSQL como base de datos principal. Asegúrate de tener PostgreSQL instalado y configurado correctamente en tu entorno de desarrollo.
 Si necesitas reiniciar la base de datos:
-1. Elimina el archivo `prisma/dev.db`
+1. Dropea y recrea tu base de datos en PostgreSQL
 2. Ejecuta `npx prisma migrate reset` para aplicar todas las migraciones y opcionalmente ejecutar scripts de semilla
 
-## Prisma Studio
+## Despliegue
+Este proyecto está configurado para ser desplegado en Vercel. Asegúrate de configurar las variables de entorno necesarias en tu dashboard de Vercel, incluyendo la `DATABASE_URL` que apunte a tu base de datos de producción PostgreSQL.
+Para el reseteo automático del contador en producción, configura un cron job que haga una petición POST a la ruta `/api/reset-counter` de tu aplicación desplegada.
 
-Puedes usar Prisma Studio para ver y editar tu base de datos:
-
-```
-npx prisma studio
-```
-
-Esto abrirá una ventana del navegador donde podrás interactuar con tus datos.
-
+## Notas Adicionales
+- La migración a PostgreSQL mejora la escalabilidad y el rendimiento de la aplicación, especialmente en entornos de producción.
+- La implementación simplificada con `useState` proporciona un manejo de estado más directo y fácil de entender.
+- La nueva ruta API para resetear el contador permite una fácil integración con servicios de cron job para mantenimiento automático.
